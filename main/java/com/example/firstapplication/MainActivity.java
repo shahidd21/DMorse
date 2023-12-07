@@ -1,10 +1,11 @@
 package com.example.firstapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.firstapplication.databinding.ActivityMainBinding;
 
@@ -15,32 +16,32 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
     HashMap<String, String> morseLetter = new HashMap<String, String>(){{
-        put("A",".-");
-        put("B","-...");
-        put("C","-.-.");
-        put("D","-..");
+        put("A","._");
+        put("B","_...");
+        put("C","_._.");
+        put("D","_..");
         put("E",".");
-        put("F","..-.");
-        put("G","--.");
+        put("F",".._.");
+        put("G","__.");
         put("H","....");
         put("I","..");
-        put("J",".---");
-        put("K","-.-");
-        put("L",".-..");
-        put("M","--");
-        put("N","-.");
-        put("O","---");
-        put("P",".--.");
-        put("Q","--.-");
-        put("R",".-.");
+        put("J",".___");
+        put("K","_._");
+        put("L","._..");
+        put("M","__");
+        put("N","_.");
+        put("O","___");
+        put("P",".__.");
+        put("Q","__._");
+        put("R","._.");
         put("S","...");
-        put("T","-");
-        put("U","..-");
-        put("V","...-");
-        put("W",".--");
-        put("X","-..-");
-        put("Y","-.--");
-        put("Z","--..");
+        put("T","_");
+        put("U",".._");
+        put("V","..._");
+        put("W",".__");
+        put("X","_.._");
+        put("Y","_.__");
+        put("Z","__..");
         put(" ","  ");
     }};
 
@@ -78,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.morseChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,PdfActivity.class);
+                startActivity(i);
+            }
+        });
+
 
 
 
@@ -92,16 +101,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void playMorseCode(String word2) {
+
         for (int i = 0; i < word2.length(); i++) {
             String morsecode = morseLetter.get(String.valueOf(word2.charAt(i)));
             for (int j = 0; j < morsecode.length(); j++) {
-                if(morsecode.charAt(j) == '.'){
-                  playDot();
-                }else if(morsecode.charAt(j) == '-'){
-                   playDash();
-                }else{
-
-                    playNothing();
+                if (morsecode.charAt(j) == '.') {
+                    playDot();
+                } else if (morsecode.charAt(j) == '_') {
+                    playDash();
                 }
             }
             try {
@@ -115,14 +122,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void playNothing() {
         try {
-            Thread.sleep(100);
+            Thread.sleep(700);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void playDash() {
-        final MediaPlayer mediaPlayer2 = MediaPlayer.create(this,R.raw.beep2);
+        final MediaPlayer mediaPlayer2 = MediaPlayer.create(this,R.raw.finalbeep2);
         mediaPlayer2.start();
 
         try {
@@ -135,10 +142,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void playDot() {
-        final MediaPlayer mediaPlayer1 = MediaPlayer.create(this,R.raw.beep1);
+        final MediaPlayer mediaPlayer1 = MediaPlayer.create(this,R.raw.finalbeep1);
         mediaPlayer1.start();
         try {
-            Thread.sleep(400);
+            Thread.sleep(300);
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
